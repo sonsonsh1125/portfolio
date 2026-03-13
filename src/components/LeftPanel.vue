@@ -33,15 +33,15 @@
 
 <script setup>
 defineProps({
-  profile:       { type: Object,  required: true },
-  navItems:      { type: Array,   required: true },
-  activeSection: { type: String,  default: 'about' },
-})
+  profile: { type: Object, required: true },
+  navItems: { type: Array, required: true },
+  activeSection: { type: String, default: "about" },
+});
 
-defineEmits(['nav-click'])
+defineEmits(["nav-click"]);
 
 function openLink(url) {
-  if (url) window.open(url, '_blank')
+  if (url) window.open(url, "_blank");
 }
 </script>
 
@@ -78,7 +78,7 @@ function openLink(url) {
   font-size: 14px;
   color: var(--slate);
   max-width: 260px;
-  line-height: 1.65;
+  word-break: keep-all;
 }
 
 /* Nav */
@@ -107,7 +107,7 @@ function openLink(url) {
 }
 
 .nav-btn::before {
-  content: '';
+  content: "";
   display: block;
   height: 1px;
   width: 28px;
@@ -138,7 +138,9 @@ function openLink(url) {
   cursor: pointer;
   padding: 4px;
   display: flex;
-  transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
 }
 
 .social-btn:hover {
@@ -160,6 +162,8 @@ function openLink(url) {
     padding: 56px 0 32px;
   }
 
-  .nav { display: none; }
+  .nav {
+    display: none;
+  }
 }
 </style>

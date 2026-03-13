@@ -12,88 +12,99 @@
 
     <main class="right-panel">
       <AboutSection :html="aboutHtml" />
-      <ExperienceSection :experiences="experiences" :resume-url="profile.resume" />
+      <ExperienceSection
+        :experiences="experiences"
+        :resume-url="profile.resume"
+      />
       <ProjectSection :projects="projects" />
       <WritingSection :writings="writings" />
 
       <p class="footer">
-        Inspired by
-        <a href="https://brittanychiang.com" target="_blank">Brittany Chiang</a>
-        · Built with
+        Built with
         <a href="https://vuejs.org" target="_blank">Vue 3</a>
+        &
+        <a href="https://vitejs.dev" target="_blank">Vite</a>
+        · Deployed on
+        <a href="https://vercel.com" target="_blank">Vercel</a>
       </p>
     </main>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { PROFILE, ABOUT_HTML, EXPERIENCES, PROJECTS, WRITINGS } from './data/portfolio.js'
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import {
+  PROFILE,
+  ABOUT_HTML,
+  EXPERIENCES,
+  PROJECTS,
+  WRITINGS,
+} from "./data/portfolio.js";
 
-import LeftPanel        from './components/LeftPanel.vue'
-import AboutSection     from './components/AboutSection.vue'
-import ExperienceSection from './components/ExperienceSection.vue'
-import ProjectSection   from './components/ProjectSection.vue'
-import WritingSection   from './components/WritingSection.vue'
+import LeftPanel from "./components/LeftPanel.vue";
+import AboutSection from "./components/AboutSection.vue";
+import ExperienceSection from "./components/ExperienceSection.vue";
+import ProjectSection from "./components/ProjectSection.vue";
+import WritingSection from "./components/WritingSection.vue";
 
-const profile     = ref(PROFILE)
-const aboutHtml   = ref(ABOUT_HTML)
-const experiences = ref(EXPERIENCES)
-const projects    = ref(PROJECTS)
-const writings    = ref(WRITINGS)
+const profile = ref(PROFILE);
+const aboutHtml = ref(ABOUT_HTML);
+const experiences = ref(EXPERIENCES);
+const projects = ref(PROJECTS);
+const writings = ref(WRITINGS);
 
-const activeSection = ref('about')
-const mouseX = ref(0)
-const mouseY = ref(0)
+const activeSection = ref("about");
+const mouseX = ref(0);
+const mouseY = ref(0);
 
 const navItems = [
-  { id: 'about',      label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects',   label: 'Projects' },
-  { id: 'writing',    label: 'Writing' },
-]
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "writing", label: "Writing" },
+];
 
 const glowStyle = computed(() => ({
   background: `radial-gradient(500px circle at ${mouseX.value}px ${mouseY.value}px, rgba(29,52,97,.18), transparent 70%)`,
-}))
+}));
 
 function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 
 function onMouseMove(e) {
-  mouseX.value = e.clientX
-  mouseY.value = e.clientY
+  mouseX.value = e.clientX;
+  mouseY.value = e.clientY;
 }
 
-let observer
+let observer;
 onMounted(() => {
-  window.addEventListener('mousemove', onMouseMove)
+  window.addEventListener("mousemove", onMouseMove);
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) activeSection.value = e.target.id
-      })
+        if (e.isIntersecting) activeSection.value = e.target.id;
+      });
     },
-    { threshold: 0.45 }
-  )
+    { threshold: 0.45 },
+  );
   navItems.forEach(({ id }) => {
-    const el = document.getElementById(id)
-    if (el) observer.observe(el)
-  })
-})
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+});
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', onMouseMove)
-  observer?.disconnect()
-})
+  window.removeEventListener("mousemove", onMouseMove);
+  observer?.disconnect();
+});
 </script>
 
 <style>
-@import './assets/styles/global.css';
+@import "./assets/styles/global.css";
 
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap");
 
 #app {
   display: flex;

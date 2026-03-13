@@ -12,7 +12,30 @@
       >
         <!-- Image side -->
         <div class="project-img-wrap">
-          <img v-if="proj.image" :src="proj.image" :alt="proj.title" />
+          <template v-if="proj.image && isVimeo(proj.image)">
+            <img
+              :src="getVimeoThumbnail(proj.image)"
+              :alt="proj.title"
+              class="vimeo-thumbnail"
+            />
+            <iframe
+              :src="getVimeoEmbedUrl(proj.image)"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              class="vimeo-iframe"
+              @load="onVimeoLoad"
+            />
+          </template>
+          <video
+            v-else-if="proj.image && isVideo(proj.image)"
+            :src="proj.image"
+            autoplay
+            loop
+            muted
+            playsinline
+          />
+          <img v-else-if="proj.image" :src="proj.image" :alt="proj.title" />
           <div v-else class="project-img-placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2"/>
@@ -48,6 +71,45 @@ defineProps({
 function openLink(url) {
   if (url && url !== '#') window.open(url, '_blank')
 }
+
+function isVideo(path) {
+  if (!path) return false
+  return /\.(mp4|webm|mov)$/i.test(path)
+}
+
+function isVimeo(url) {
+  if (!url) return false
+  return /vimeo\.com/i.test(url)
+}
+
+function getVimeoEmbedUrl(url) {
+  // Extract video ID from Vimeo URL
+  const match = url.match(/vimeo\.com\/video\/(\d+)/)
+  if (match && match[1]) {
+    return `https://player.vimeo.com/video/${match[1]}?muted=1&autoplay=1&loop=1&background=1&autopause=0`
+  }
+  return url
+}
+
+function getVimeoThumbnail(url) {
+  // Extract video ID and get thumbnail
+  const match = url.match(/vimeo\.com\/video\/(\d+)/)
+  if (match && match[1]) {
+    return `https://vumbnail.com/${match[1]}.jpg`
+  }
+  return ''
+}
+
+function onVimeoLoad(event) {
+  // Fade out thumbnail when iframe is loaded
+  const thumbnail = event.target.previousElementSibling
+  if (thumbnail && thumbnail.classList.contains('vimeo-thumbnail')) {
+    setTimeout(() => {
+      thumbnail.style.opacity = '0'
+      thumbnail.style.pointerEvents = 'none'
+    }, 500)
+  }
+}
 </script>
 
 <style scoped>
@@ -81,7 +143,8 @@ function openLink(url) {
   min-height: 200px;
 }
 
-.project-img-wrap img {
+.project-img-wrap img,
+.project-img-wrap video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -90,8 +153,46 @@ function openLink(url) {
   filter: grayscale(30%) brightness(0.85);
 }
 
-.project-card:hover .project-img-wrap img {
+.project-img-wrap .vimeo-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  transition: opacity 0.8s ease, transform 0.5s var(--ease), filter 0.4s;
+  filter: grayscale(30%) brightness(0.85);
+}
+
+.project-img-wrap .vimeo-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%) scale(1.3);
+  transition: transform 0.5s var(--ease), filter 0.4s;
+  filter: grayscale(30%) brightness(0.85);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover .project-img-wrap img,
+.project-card:hover .project-img-wrap video {
   transform: scale(1.04);
+  filter: grayscale(0%) brightness(1);
+}
+
+.project-card:hover .project-img-wrap .vimeo-thumbnail {
+  transform: scale(1.04);
+  filter: grayscale(0%) brightness(1);
+}
+
+.project-card:hover .project-img-wrap .vimeo-iframe {
+  transform: translate(-50%, -50%) scale(1.35);
   filter: grayscale(0%) brightness(1);
 }
 

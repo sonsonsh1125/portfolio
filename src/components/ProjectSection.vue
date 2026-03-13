@@ -37,10 +37,17 @@
           />
           <img v-else-if="proj.image" :src="proj.image" :alt="proj.title" />
           <div v-else class="project-img-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
             </svg>
             이미지 준비 중
           </div>
@@ -48,7 +55,7 @@
 
         <!-- Text side -->
         <div class="project-body">
-          <div class="project-num">{{ String(i + 1).padStart(2, '0') }}.</div>
+          <div class="project-num">{{ String(i + 1).padStart(2, "0") }}.</div>
           <div class="project-title">
             {{ proj.title }}
             <span v-if="proj.url" class="arrow">↗</span>
@@ -66,48 +73,48 @@
 <script setup>
 defineProps({
   projects: { type: Array, required: true },
-})
+});
 
 function openLink(url) {
-  if (url && url !== '#') window.open(url, '_blank')
+  if (url && url !== "#") window.open(url, "_blank");
 }
 
 function isVideo(path) {
-  if (!path) return false
-  return /\.(mp4|webm|mov)$/i.test(path)
+  if (!path) return false;
+  return /\.(mp4|webm|mov)$/i.test(path);
 }
 
 function isVimeo(url) {
-  if (!url) return false
-  return /vimeo\.com/i.test(url)
+  if (!url) return false;
+  return /vimeo\.com/i.test(url);
 }
 
 function getVimeoEmbedUrl(url) {
   // Extract video ID from Vimeo URL
-  const match = url.match(/vimeo\.com\/video\/(\d+)/)
+  const match = url.match(/vimeo\.com\/video\/(\d+)/);
   if (match && match[1]) {
-    return `https://player.vimeo.com/video/${match[1]}?muted=1&autoplay=1&loop=1&background=1&autopause=0`
+    return `https://player.vimeo.com/video/${match[1]}?muted=1&autoplay=1&loop=1&background=1&autopause=0`;
   }
-  return url
+  return url;
 }
 
 function getVimeoThumbnail(url) {
   // Extract video ID and get thumbnail
-  const match = url.match(/vimeo\.com\/video\/(\d+)/)
+  const match = url.match(/vimeo\.com\/video\/(\d+)/);
   if (match && match[1]) {
-    return `https://vumbnail.com/${match[1]}.jpg`
+    return `https://vumbnail.com/${match[1]}.jpg`;
   }
-  return ''
+  return "";
 }
 
 function onVimeoLoad(event) {
   // Fade out thumbnail when iframe is loaded
-  const thumbnail = event.target.previousElementSibling
-  if (thumbnail && thumbnail.classList.contains('vimeo-thumbnail')) {
+  const thumbnail = event.target.previousElementSibling;
+  if (thumbnail && thumbnail.classList.contains("vimeo-thumbnail")) {
     setTimeout(() => {
-      thumbnail.style.opacity = '0'
-      thumbnail.style.pointerEvents = 'none'
-    }, 500)
+      thumbnail.style.opacity = "0";
+      thumbnail.style.pointerEvents = "none";
+    }, 500);
   }
 }
 </script>
@@ -120,11 +127,15 @@ function onVimeoLoad(event) {
   border: 1px solid transparent;
   margin-bottom: 16px;
   overflow: hidden;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
   min-height: 220px;
 }
 
-.project-card.clickable { cursor: pointer; }
+.project-card.clickable {
+  cursor: pointer;
+}
 
 .project-card:hover {
   border-color: var(--slate-dim);
@@ -132,8 +143,12 @@ function onVimeoLoad(event) {
 }
 
 /* Alternate: even cards flip image to right */
-.project-card:nth-child(even) { direction: rtl; }
-.project-card:nth-child(even) > * { direction: ltr; }
+.project-card:nth-child(even) {
+  direction: rtl;
+}
+.project-card:nth-child(even) > * {
+  direction: ltr;
+}
 
 /* Image */
 .project-img-wrap {
@@ -149,7 +164,9 @@ function onVimeoLoad(event) {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s var(--ease), filter 0.4s;
+  transition:
+    transform 0.5s var(--ease),
+    filter 0.4s;
   filter: grayscale(30%) brightness(0.85);
 }
 
@@ -161,7 +178,10 @@ function onVimeoLoad(event) {
   height: 100%;
   object-fit: cover;
   z-index: 2;
-  transition: opacity 0.8s ease, transform 0.5s var(--ease), filter 0.4s;
+  transition:
+    opacity 0.8s ease,
+    transform 0.5s var(--ease),
+    filter 0.4s;
   filter: grayscale(30%) brightness(0.85);
 }
 
@@ -174,7 +194,9 @@ function onVimeoLoad(event) {
   min-width: 100%;
   min-height: 100%;
   transform: translate(-50%, -50%) scale(1.3);
-  transition: transform 0.5s var(--ease), filter 0.4s;
+  transition:
+    transform 0.5s var(--ease),
+    filter 0.4s;
   filter: grayscale(30%) brightness(0.85);
   pointer-events: none;
   z-index: 1;
@@ -197,7 +219,7 @@ function onVimeoLoad(event) {
 }
 
 .project-img-wrap::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(100, 255, 218, 0.05);
@@ -205,7 +227,9 @@ function onVimeoLoad(event) {
   transition: opacity 0.3s;
 }
 
-.project-card:hover .project-img-wrap::after { opacity: 1; }
+.project-card:hover .project-img-wrap::after {
+  opacity: 1;
+}
 
 /* Placeholder */
 .project-img-placeholder {
@@ -241,7 +265,9 @@ function onVimeoLoad(event) {
   transition: background 0.25s;
 }
 
-.project-card:hover .project-body { background: #152641; }
+.project-card:hover .project-body {
+  background: #152641;
+}
 
 .project-num {
   font-family: var(--font-mono);
@@ -263,13 +289,17 @@ function onVimeoLoad(event) {
   line-height: 1.3;
 }
 
-.project-card:hover .project-title { color: var(--green); }
+.project-card:hover .project-title {
+  color: var(--green);
+}
 
 .arrow {
   font-size: 14px;
   opacity: 0;
   transform: translateX(-4px);
-  transition: opacity 0.2s, transform 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
   flex-shrink: 0;
 }
 
@@ -283,13 +313,18 @@ function onVimeoLoad(event) {
   color: var(--slate);
   line-height: 1.7;
   margin-bottom: 16px;
+  word-break: keep-all;
 }
 
 @media (max-width: 640px) {
   .project-card {
     grid-template-columns: 1fr;
   }
-  .project-card:nth-child(even) { direction: ltr; }
-  .project-img-wrap { min-height: 160px; }
+  .project-card:nth-child(even) {
+    direction: ltr;
+  }
+  .project-img-wrap {
+    min-height: 160px;
+  }
 }
 </style>

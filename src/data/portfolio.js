@@ -37,14 +37,14 @@ export const EXPERIENCES = [
     period: "2022.04 — 2026.02",
     role: "Frontend Developer",
     company: "DFY",
-    desc: "SM·글로벌 브랜드 전담 에이전시에서 퍼블리싱부터 Vue 기반 컴포넌트 시스템 및 Canvas 인터랙션 구현까지 프론트엔드 전 영역 담당",
+    desc: "Hyundai 및 SM Ent. 등 글로벌 브랜드 전담 에이전시에서 퍼블리싱부터 Vue 기반 컴포넌트 시스템 및 Canvas 인터랙션 구현까지 프론트엔드 전 영역 담당",
     tags: ["Vue.js", "TypeScript", "Nuxt", "Tailwind CSS", "GSAP"],
   },
   {
     period: "2020.12 — 2021.12",
     role: "Web Publisher",
     company: "Mecayours",
-    desc: "OCI·우체국보험 등 대형 클라이언트 6개 프로젝트 기획부터 퍼블리싱까지 전 과정 담당",
+    desc: "OCI 및 우체국보험 등 대형 클라이언트 6개 프로젝트 기획부터 퍼블리싱까지 전 과정 담당",
     tags: ["JavaScript", "SCSS", "ES6", "Node.js"],
   },
 ];

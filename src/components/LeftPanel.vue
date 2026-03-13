@@ -129,6 +129,7 @@ function openLink(url) {
 .socials {
   display: flex;
   gap: 18px;
+  margin-top: 16px;
 }
 
 .social-btn {

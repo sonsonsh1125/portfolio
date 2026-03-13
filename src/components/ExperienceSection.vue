@@ -3,11 +3,7 @@
     <div class="section-header">Experience</div>
 
     <div class="exp-list">
-      <div
-        v-for="exp in experiences"
-        :key="exp.company"
-        class="exp-card"
-      >
+      <div v-for="exp in experiences" :key="exp.company" class="exp-card">
         <div class="exp-period">{{ exp.period }}</div>
         <div class="exp-role">{{ exp.role }}</div>
         <div class="exp-company">· {{ exp.company }}</div>
@@ -19,10 +15,17 @@
     </div>
 
     <a :href="resumeUrl" target="_blank" class="resume-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7 10 12 15 17 10" />
+        <line x1="12" y1="15" x2="12" y2="3" />
       </svg>
       이력서 전체 보기
     </a>
@@ -31,9 +34,9 @@
 
 <script setup>
 defineProps({
-  experiences: { type: Array,  required: true },
-  resumeUrl:   { type: String, default: '#' },
-})
+  experiences: { type: Array, required: true },
+  resumeUrl: { type: String, default: "#" },
+});
 </script>
 
 <style scoped>
@@ -42,7 +45,10 @@ defineProps({
   border-radius: 8px;
   border: 1px solid transparent;
   margin-bottom: 4px;
-  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s;
   cursor: default;
 }
 
@@ -69,7 +75,9 @@ defineProps({
   transition: color 0.2s;
 }
 
-.exp-card:hover .exp-role { color: var(--green); }
+.exp-card:hover .exp-role {
+  color: var(--green);
+}
 
 .exp-company {
   font-size: 13px;
@@ -82,6 +90,7 @@ defineProps({
   color: var(--slate);
   line-height: 1.7;
   margin-bottom: 14px;
+  word-break: keep-all;
 }
 
 .resume-btn {
@@ -101,7 +110,9 @@ defineProps({
   text-decoration: none;
 }
 
-.resume-btn:hover { background: var(--green-dim); }
+.resume-btn:hover {
+  background: var(--green-dim);
+}
 
 .resume-btn svg {
   width: 14px;

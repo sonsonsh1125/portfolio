@@ -8,7 +8,7 @@
 <script setup>
 defineProps({
   html: { type: String, required: true },
-})
+});
 </script>
 
 <style scoped>
@@ -16,6 +16,7 @@ defineProps({
   color: var(--slate);
   line-height: 1.8;
   margin-bottom: 14px;
+  word-break: keep-all;
 }
 
 .about-text :deep(p:last-child) {

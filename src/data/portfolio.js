@@ -62,7 +62,7 @@ export const PROJECTS = [
     desc: "SM 엔터테인먼트의 버츄얼 아티스트 '나이비스(nævis)'를 위한 공식 프로모션 웹사이트. 디지털 월드와 리얼 월드를 넘나드는 컨셉에 맞춘 인터랙티브한 랜딩 페이지 구현",
     tags: ["ES6", "SCSS", "GSAP"],
     url: "https://naevisofficial.com/",
-    image: "public/projects/naevis_thumb.png",
+    image: "/projects/naevis_thumb.png",
   },
   {
     title: "GENESYS PIP RENEWAL",
@@ -76,14 +76,14 @@ export const PROJECTS = [
     desc: "페루 지역의 관광 데이터와 소셜 콘텐츠를 인터랙티브하게 전달하는 공식 웹사이트 개발",
     tags: ["Leaflet", "ES6", "ScrollTrigger"],
     url: "https://visitperu.dfy.me/",
-    image: "public/projects/visitperu_thumb.jpg",
+    image: "/projects/visitperu_thumb.jpg",
   },
   {
     title: "YG+ Buffz",
     desc: "카페24 기반 이커머스 구축 및 커스텀 스크립트로 플랫폼 기능 확장",
     tags: ["cafe24", "javascript", "ScrollTrigger"],
     url: "https://buffz.co.kr/",
-    image: "public/projects/buffz_thumb.webp",
+    image: "/projects/buffz_thumb.webp",
   },
 ];
 

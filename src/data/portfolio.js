@@ -2,7 +2,7 @@ export const PROFILE = {
   name: "손승현",
   title: "Frontend Developer",
   bio: "사용자 경험에 집착하는 웹 개발자. 아름다운 인터페이스와 견고한 코드를 함께 추구합니다.",
-  resume: "#",
+  resume: "public/손승현_퍼블리셔_이력서.pdf",
   socials: [
     {
       label: "GitHub",
@@ -73,7 +73,7 @@ export const PROJECTS = [
   },
   {
     title: "Visit Peru",
-    desc: "페루 지역의 관광 데이터와 소셜 콘텐츠를 인터랙티브하게 전달하는 공식 웹사이트 개발",
+    desc: "페루 지역의 관광 데이터와 소셜 콘텐츠를 인터랙티브하게 전달하는 페루 관광청 공식 웹사이트 개발",
     tags: ["Leaflet", "ES6", "ScrollTrigger"],
     url: "https://visitperu.dfy.me/",
     image: "/projects/visitperu_thumb.jpg",

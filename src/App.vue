@@ -77,16 +77,58 @@ function onMouseMove(e) {
   mouseY.value = e.clientY;
 }
 
+// 스크롤 시 현재 섹션 업데이트
+const updateActiveSection = () => {
+  const sections = navItems.map(({ id }) => document.getElementById(id)).filter(Boolean);
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const viewportCenter = window.innerHeight / 2;
+
+  // 페이지 최상단(100px 이내)이면 무조건 about 활성화
+  if (scrollTop < 100) {
+    activeSection.value = "about";
+    return;
+  }
+
+  let closestSection = null;
+  let closestDistance = Infinity;
+
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    const sectionCenter = rect.top + rect.height / 2;
+    const distance = Math.abs(sectionCenter - viewportCenter);
+
+    // 섹션이 뷰포트에 보이고, 중심에 가장 가까운 경우
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestSection = section;
+      }
+    }
+  });
+
+  if (closestSection) {
+    activeSection.value = closestSection.id;
+  }
+};
+
+// 스크롤 이벤트에 throttle 적용
+let scrollTimeout;
+const handleScroll = () => {
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveSection, 50);
+};
+
 let observer;
 onMounted(() => {
   window.addEventListener("mousemove", onMouseMove);
+  window.addEventListener("scroll", handleScroll);
+  updateActiveSection(); // 초기 실행
+
   observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) activeSection.value = e.target.id;
-      });
+      updateActiveSection();
     },
-    { threshold: 0.45 },
+    { threshold: [0, 0.5, 1] },
   );
   navItems.forEach(({ id }) => {
     const el = document.getElementById(id);
@@ -96,6 +138,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("mousemove", onMouseMove);
+  window.removeEventListener("scroll", handleScroll);
   observer?.disconnect();
 });
 </script>
